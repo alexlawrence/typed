@@ -1,0 +1,16 @@
+{
+    "name": "typed",
+    "version": "0.3.0",
+    "description": "Static typing for JavaScript",
+    "main": "src/typed.js",
+    "repository": "https://github.com/alexlawrence/typed.git",
+    "author": "Alex Lawrence",
+    "license": "MIT",
+    "devDependencies": {
+        "jasmine-node": "*",
+        "jasmine-grunt-node-task": "*",
+        "grunt": "*",
+        "browserify": "*",
+        "grunt-shell": "*"
+    }
+}

@@ -3,16 +3,15 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">      
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
+    <link rel="stylesheet" type="text/css" href="codemirror-2.34/lib/codemirror.css" />    
+    <link rel="stylesheet" type="text/css" href="stylesheets/extra.css" />
     <title>typed by alexlawrence</title>
   </head>
 
@@ -20,7 +19,7 @@
     <header>
       <div class="inner">
         <h1>typed</h1>
-        <h2>Static typing for JavaScript.</h2>
+        <h2>typed is a static typing module for JavaScript, an application-scale language. Works in Node.js and almost any browser.</h2>
         <a href="https://github.com/alexlawrence/typed" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -28,51 +27,188 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>Welcome to GitHub Pages.</h3>
+            <h3>Static typing at runtime</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+            <p>
+                This module provides static typing for function arguments at runtime without any compilation step.
+                Works with native types (Boolean, Number, String, etc.), 
+                global available custom types and so called structures 
+                (named after <a href="http://dailyjs.com/2011/09/12/destructuring/" target="_blank">destructuring</a>, similar to interfaces).
+                All you have to do is add type declaration comments to your arguments and wrap your function declarations inside the <strong>typed()</strong> function.
+                Try the examples below to see it in action.
+            </p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+            <div class="demo">
+                <div class="left">
+                    <div class="header">JavaScript</div>
+                    <select id="tutorialSelection" style="vertical-align:bottom;margin-left:5px">
+                        <option value="0">Select...</option>
+                        <option value="native">Walkthrough: Native types</option>
+                        <option value="custom">Walkthrough: Custom types</option>
+                        <option value="structure">Walkthrough: Structures</option>
+                        <option value="suffix">Alternative format</option>
+                        <option value="manual">Manual type declaration</option>
+                    </select>        
+                    <div class="code">
+                        <textarea id="editor" spellcheck="false"></textarea>
+                    </div>
+                    
+                </div>
+                   
+                <div class="right">
+                    <div class="header">Output</div>
+                    <div id="output" class="output"></div>
+                </div>
+            </div>
+            
+            <h3>How it works</h3>
+            
+            <p>
+                typed consists of two parts: Argument type parsing and function decoration for runtime type checking. The built-in parsers analyze the source code of the passed functions to read the type declarations. By default the so called "comment parser" is used. Unfortunately some JavaScript environments like Firefox do not preserve the original code comments when requesting a function´s source by calling toString().
+            </p>
+            
+            <h3>Alternative formats</h3>
+            
+            <p>
+                If the type declaration comments don´t work for you can also use the so called "suffix parser" which searches in function argument names for type suffixes. Another option is to use no parser and to provide the type information manually. Look at the above examples to see the usage of these formats.
+            </p>            
+            
+            <h3>Performance and production environments</h3>
+            
+            <p>
+                Since the type information parsing and the actual type checking is performed on runtime the performance will obviously be decreased when compared to not use typed. If you want to use type checking during development 
+            </p>
+            
+            <h3>Authors and Contributors</h3>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+            <p>
+                This module is maintained by <a href="https://github.com/alexlawrence" class="user-mention">alexlawrence</a> and was inspired by the language <a href="http://www.typescriptlang.org/">TypeScript</a>.
+            </p>
 
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
         </section>
 
         <aside id="sidebar">
           <a href="https://github.com/alexlawrence/typed/zipball/master" class="button">
-            <small>Download</small>
+            <small>Get typed now</small>
             .zip file
           </a>
           <a href="https://github.com/alexlawrence/typed/tarball/master" class="button">
-            <small>Download</small>
+            <small>Get typed now</small>
             .tar.gz file
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/alexlawrence/typed"></a> is maintained by <a href="https://github.com/alexlawrence">alexlawrence</a>.</p>
+          <p class="repo-owner"><a href="https://github.com/alexlawrence/typed">typed</a> is maintained by <a href="https://github.com/alexlawrence">alexlawrence</a>.</p>
 
           <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
 
+<pre id="example-native" style="display:none">
+var Greeter = typed(function(greeting /*:String*/) {
+  this.greeting = greeting;
+});
+
+Greeter.prototype.greet = function() {
+  return "Hello, " + this.greeting;
+};
+
+var greeter = new Greeter("world");
+
+console.log(greeter.greet());</pre>
+
+<pre id="example-custom" style="display:none">
+var Player = function(name) {
+  this.name = name;
+}; 
+
+var Game = function(){
   
+  var players = [];
+  
+  this.addPlayer = function(player /*:Player*/) {
+    players.push(player);
+  };
+
+  this.getPlayerNames = function() {
+    var names = [];
+    for (var i = 0; i &lt; players.length; i++) {
+      names.push(players[i].name);
+    }
+    return names.join(', ');
+  };
+};
+
+var game = new Game();
+game.addPlayer(new Player('Jack'));
+game.addPlayer(new Player('John'));
+
+console.log(game.getPlayerNames());
+</pre>
+
+<pre id="example-structure" style="display:none">
+var Cart = function() {
+  
+  var items = [];
+  this.add = typed(function(x /*:{price: Number}*/) {
+    items.push(x); 
+  });
+  this.getTotalCosts = function() {
+    var total = 0;
+    items.forEach(function(x) {total += x.price;});
+    return total;
+  }
+    
+};
+
+var salad = {name: 'salad', price: 1.5};
+var burger = {name: 'burger', price: 2};
+
+var cart = new Cart();
+cart.add(salad);
+cart.add(burger);
+
+console.log('total costs', cart.getTotalCosts());</pre>    
+
+<pre id="example-suffix" style="display:none">
+typed.parser = typed.suffixParser;
+
+var Greeter = typed(function(greeting_String) {
+  this.greeting = greeting_String;
+});
+
+Greeter.prototype.greet = function() {
+  return "Hello, " + this.greeting;
+};
+
+var greeter = new Greeter("world");
+
+console.log(greeter.greet());
+
+// you can also configure the used separator
+typed.parser.setTypeSeparator('$');</pre>    
+
+<pre id="example-manual" style="display:none">
+typed.parser = typed.noParser;
+
+var Greeter = typed(function(greeting) {
+  this.greeting = greeting;
+});
+
+Greeter.types = ['String'];
+
+Greeter.prototype.greet = function() {
+  return "Hello, " + this.greeting;
+};
+
+var greeter = new Greeter("world");
+
+console.log(greeter.greet());</pre>
+    
+    <script type="text/javascript" src="https://raw.github.com/alexlawrence/typed/master/browser/typed.browser.js"></script>
+    <script type="text/javascript" src="codemirror-2.34/lib/codemirror.js"></script>
+    <script type="text/javascript" src="codemirror-2.34/mode/javascript/javascript.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+    
   </body>
 </html>

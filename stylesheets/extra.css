@@ -1,0 +1,70 @@
+.demo
+{
+    margin-bottom: 25px;
+    overflow: auto;
+}
+
+.demo .left
+{
+    width: 60%;
+    float:left;
+}
+              
+
+.demo .code, .demo .output
+{
+    
+    height: 350px;
+    resize: none;
+    border: 1px solid grey;
+    margin: 0;
+    background-color: #FFF;
+}
+
+.demo .output
+{
+    font-family: monospace;
+    color: #5A5;
+    font-size: 12px;
+}
+
+.demo .header
+{
+    display:inline-block;
+    color:#FFF;
+    background-color:gray;
+    padding:10px;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+.demo .right 
+{
+    width: 38%;
+    float:right;
+}    
+
+.demo select
+{
+    margin: 0;
+}
+
+.CodeMirror pre, .CodeMirror-scroll
+{
+    overflow: inherit;
+}
+
+.CodeMirror-scroll
+{
+    height:350px;
+}
+
+.CodeMirror
+{
+    font-size: 12px;
+}
+
+strong
+{
+    font-weight: bold;
+}

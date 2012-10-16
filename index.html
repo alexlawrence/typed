@@ -19,7 +19,11 @@
     <header>
       <div class="inner">
         <h1>typed</h1>
-        <h2>typed is a static typing module for JavaScript. Works in Node.js and almost any browser.</h2>
+        <h2>
+            typed is a static typing library for JavaScript. 
+            <br />
+            Works in Node.js and in most browsers.
+        </h2>
         <a href="https://github.com/alexlawrence/typed" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -30,24 +34,24 @@
             <h3>Static typing at runtime</h3>
 
             <p>
-                This module provides static typing for function arguments at runtime without any compilation step.
-                Works with native types (Boolean, Number, String, etc.), 
+                typed provides static typing for function arguments at runtime without any compilation steps.
+                It works with native types (Boolean, Number, String, etc.), 
                 global available custom types and so called structures 
-                (named after <a href="http://dailyjs.com/2011/09/12/destructuring/" target="_blank">destructuring</a>, similar to interfaces).
-                All you have to do is add type declaration comments to your arguments and wrap your function declarations inside the <strong>typed()</strong> function.
-                Try the examples below to see it in action.
+                (similar to interfaces, named after <a href="http://dailyjs.com/2011/09/12/destructuring/" target="_blank">destructuring</a>).
+                Just add type declaration comments to your arguments and wrap your functions inside the <strong>typed()</strong> function.
+                Try the examples below.
             </p>
 
             <div class="demo">
                 <div class="left">
                     <div class="header">JavaScript</div>
                     <select id="tutorialSelection" style="vertical-align:bottom;margin-left:5px">
-                        <option value="0">Select...</option>
+                        <option value="intro" selected="selected">Select...</option>
                         <option value="native">Walkthrough: Native types</option>
                         <option value="custom">Walkthrough: Custom types</option>
                         <option value="structure">Walkthrough: Structures</option>
-                        <option value="suffix">Alternative format</option>
-                        <option value="manual">Manual type declaration</option>
+                        <option value="suffix">Advanced: Suffix parser</option>
+                        <option value="manual">Advanced: No parser</option>
                     </select>        
                     <div class="code">
                         <textarea id="editor" spellcheck="false"></textarea>
@@ -64,25 +68,19 @@
             <h3>How it works</h3>
             
             <p>
-                typed consists of two parts: Argument type parsing and function decoration for runtime type checking. The built-in parsers analyze the source code of the passed functions to read the type declarations. By default the so called "comment parser" is used. Unfortunately some JavaScript environments like Firefox do not preserve the original code comments when requesting a function´s source by calling toString().
+                typed consists of two parts: argument type parsing and runtime argument type checking. The built-in parsers (comment, suffix and no parser) search the source code of functions for type declarations. By default the <strong>comment parser</strong> is used. Unfortunately some JavaScript environments like Firefox and IE7 do not provide the original code comments when requesting a function´s source code.
             </p>
             
             <h3>Alternative formats</h3>
             
             <p>
-                If the type declaration comments don´t work for you can also use the so called "suffix parser" which searches in function argument names for type suffixes. Another option is to use no parser and to provide the type information manually. Look at the above examples to see the usage of these formats.
+                If the argument comments don´t work for you can also use the <strong>suffix parser</strong> which searches in function argument names for type suffixes. Another option is to use no parser and to provide the type information manually. Look at the advanced examples to see the usage of these formats.
             </p>            
             
             <h3>Performance and production environments</h3>
             
             <p>
-                Since the type information parsing and the actual type checking is performed on runtime the performance will obviously be decreased when compared to not use typed. If you want to use type checking during development 
-            </p>
-            
-            <h3>Authors and Contributors</h3>
-
-            <p>
-                This module is maintained by <a href="https://github.com/alexlawrence" class="user-mention">alexlawrence</a> and was inspired by the language <a href="http://www.typescriptlang.org/">TypeScript</a>.
+                Since the type parsing and type checking is performed at runtime your code will obviously run a bit slower compared to not using typed. Alternatively, you can perform type checking only during development and turn typed off for production environments by setting <strong>typed.active</strong> to false. When deactivated typed will not decorate any passed in functions.
             </p>
 
         </section>
@@ -104,6 +102,8 @@
       </div>
     </div>
 
+<pre id="tutorial-intro" style="display:none">/* Select one of the examples from the dropdown */</pre>
+    
 <pre id="tutorial-native" style="display:none">
 var Greeter = typed(function(greeting /*:String*/) {
   this.greeting = greeting;
@@ -205,8 +205,7 @@ var greeter = new Greeter("world");
 console.log(greeter.greet());</pre>
     
     <script type="text/javascript" src="codemirror-2.34/lib/codemirror.js"></script>
-    <script type="text/javascript" src="codemirror-2.34/mode/javascript/javascript.js"></script>    
-    <script type="text/javascript" src="javascripts/typed.browserified.js"></script>
+    <script type="text/javascript" src="codemirror-2.34/mode/javascript/javascript.js"></script>
     <script type="text/javascript" src="javascripts/liveCoding.js"></script>
     
   </body>

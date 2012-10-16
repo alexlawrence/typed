@@ -566,7 +566,7 @@ var parseTypes = function(f) {
 };
 
 var setTypeSeparator = function(separator) {
-    if (separator == '$') separator = '\\' + separator;
+    if (separator == '$') alert('nope');
     argumentTypeRegex = new RegExp('\\s*[A-Z$][0-9A-Z$]*' + separator + '([0-9A-Z$]*)\\s*', 'i');
 };
 
@@ -584,12 +584,9 @@ exports.parseTypes = function() {
 };
 });
 
-require.define("/browserify.js",function(require,module,exports,__dirname,__filename,process,global){
-
-(function() {
+require.define("/browserify.js",function(require,module,exports,__dirname,__filename,process,global){(function() {
     this.typed = require('./typed');
 }());
-
 });
 require("/browserify.js");
 })();

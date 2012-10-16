@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var typedIsNotSupported = typed(function(a/*:Number*/){}).types[0] !== 'Number';
+    var typedIsNotSupported = (function(a/*:Number*/){}).toString().indexOf('Number') == -1;
     var selectedTutorialName = '';
     
     var output = document.getElementById('output');
@@ -39,15 +39,14 @@
                 'Please read below for more details.', 'red');
         }        
         var code = editor.getValue();
-        var sandboxedCode = sandbox.replace('__code__', code);
+        var sandboxedCode = sandbox.replace('__code__', code + '\r\n');
         
         try {
             iframe.contentDocument.open();
-            iframe.contentDocument.write(
-                '<html><head></head><body>' +
-                '<script type="text/javascript" src="javascripts/typed.browserified.js"></script>' +
-                '<script type="text/javascript">' + sandboxedCode + '</script>' +
-                '</body></html>');
+            iframe.contentDocument.write('<html><head></head><body>');
+            iframe.contentDocument.write('<script type="text/javascript" src="javascripts/typed.browserified.js"></script>');
+            iframe.contentDocument.write('<script type="text/javascript">' + sandboxedCode + '</script>');
+            iframe.contentDocument.write('</body></html>');
             iframe.contentDocument.close();
         }
         catch (error) {
@@ -79,7 +78,6 @@
     tutorialSelection.addEventListener ? 
         tutorialSelection.addEventListener('change', loadTutorial) :
         tutorialSelection.attachEvent('change', loadTutorial);
-    tutorialSelection.selectedIndex = 1;
     loadTutorial();
    
 }());

@@ -26,6 +26,7 @@
     font-family: monospace;
     color: #5A5;
     font-size: 12px;
+    line-height:14px;
 }
 
 .demo .header
@@ -46,7 +47,7 @@
 
 .demo select
 {
-    margin: 0;
+    margin: 0 0 5px 0;
 }
 
 .CodeMirror pre, .CodeMirror-scroll
@@ -62,6 +63,7 @@
 .CodeMirror
 {
     font-size: 12px;
+    line-height:14px;
 }
 
 strong

@@ -30,7 +30,7 @@ typed consists of two parts: argument type parsing and runtime argument type che
             
 ## Alternative formats
             
-If the argument comments don't work for you can also use the **suffix parser** which searches in function argument names for type suffixes. Another option is to use no parser and to provide the type information manually. Look at the advanced examples to see the usage of these formats.
+If the argument comments don´t work for you can also use the **suffix parser** which searches in argument names for type suffixes. Another option is to use no parser and to provide the type information manually by populating the **types** array of a typed function. Look at the advanced examples to see the usage of these formats.
             
 ## Performance and production environments
 

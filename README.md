@@ -10,6 +10,20 @@ It works with native types (Boolean, Number, String, etc.), global available cus
 (similar to interfaces, named after destructuring).
 Just add type declaration comments to your arguments and wrap your functions inside the **typed()** function.
 
+```javascript
+var Greeter = typed(function(greeting /*:String*/) {
+  this.greeting = greeting;
+});
+
+Greeter.prototype.greet = function() {
+  return "Hello, " + this.greeting;
+};
+
+var greeter = new Greeter("world");
+
+console.log(greeter.greet());
+```
+
 ## How it works
             
 typed consists of two parts: argument type parsing and runtime argument type checking. The built-in parsers (comment, suffix and no parser) search the source code of the passed functions for type declarations. By default the <strong>comment parser</strong> is used. Unfortunately some JavaScript environments like Firefox and IE7 do not provide the original code comments when reading a function's source code. However this does not result in any error. typed simply won't perform any type checking in un.

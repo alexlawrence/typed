@@ -104,7 +104,7 @@
       </div>
     </div>
 
-<pre id="example-native" style="display:none">
+<pre id="tutorial-native" style="display:none">
 var Greeter = typed(function(greeting /*:String*/) {
   this.greeting = greeting;
 });
@@ -117,7 +117,7 @@ var greeter = new Greeter("world");
 
 console.log(greeter.greet());</pre>
 
-<pre id="example-custom" style="display:none">
+<pre id="tutorial-custom" style="display:none">
 var Player = function(name) {
   this.name = name;
 }; 
@@ -126,9 +126,9 @@ var Game = function(){
   
   var players = [];
   
-  this.addPlayer = function(player /*:Player*/) {
+  this.addPlayer = typed(function(player /*:Player*/) {
     players.push(player);
-  };
+  });
 
   this.getPlayerNames = function() {
     var names = [];
@@ -146,7 +146,7 @@ game.addPlayer(new Player('John'));
 console.log(game.getPlayerNames());
 </pre>
 
-<pre id="example-structure" style="display:none">
+<pre id="tutorial-structure" style="display:none">
 var Cart = function() {
   
   var items = [];
@@ -155,7 +155,9 @@ var Cart = function() {
   });
   this.getTotalCosts = function() {
     var total = 0;
-    items.forEach(function(x) {total += x.price;});
+    for (var i = 0; i < items.length; i++) {
+        total += items[i].price;
+    }
     return total;
   }
     
@@ -170,7 +172,7 @@ cart.add(burger);
 
 console.log('total costs', cart.getTotalCosts());</pre>    
 
-<pre id="example-suffix" style="display:none">
+<pre id="tutorial-suffix" style="display:none">
 typed.parser = typed.suffixParser;
 
 var Greeter = typed(function(greeting_String) {
@@ -183,12 +185,9 @@ Greeter.prototype.greet = function() {
 
 var greeter = new Greeter("world");
 
-console.log(greeter.greet());
+console.log(greeter.greet());</pre>    
 
-// you can also configure the used separator
-typed.parser.setTypeSeparator('$');</pre>    
-
-<pre id="example-manual" style="display:none">
+<pre id="tutorial-manual" style="display:none">
 typed.parser = typed.noParser;
 
 var Greeter = typed(function(greeting) {
@@ -205,10 +204,10 @@ var greeter = new Greeter("world");
 
 console.log(greeter.greet());</pre>
     
-    <script type="text/javascript" src="javascripts/typed.browser.js"></script>
     <script type="text/javascript" src="codemirror-2.34/lib/codemirror.js"></script>
-    <script type="text/javascript" src="codemirror-2.34/mode/javascript/javascript.js"></script>
-    <script type="text/javascript" src="javascripts/main.js"></script>
+    <script type="text/javascript" src="codemirror-2.34/mode/javascript/javascript.js"></script>    
+    <script type="text/javascript" src="javascripts/typed.browserified.js"></script>
+    <script type="text/javascript" src="javascripts/liveCoding.js"></script>
     
   </body>
 </html>

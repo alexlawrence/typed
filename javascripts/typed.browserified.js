@@ -1,4 +1,4 @@
-var require = function (file, cwd) {
+(function(){var require = function (file, cwd) {
     var resolved = require.resolve(file, cwd || '/');
     var mod = require.modules[resolved];
     if (!mod) throw new Error(
@@ -391,13 +391,47 @@ process.binding = function (name) {
 
 });
 
+require.define("/typed.js",function(require,module,exports,__dirname,__filename,process,global){'use strict';
+
+var typeCheck = require('./typeCheck');
+
+var typed = function(f) {
+    if (!typed.active) return f;
+    if (typeof f !== 'function') errorReporting.throwError(f + ' is not a function');
+    var decorated = function() {
+        var i = arguments.length, types = decorated.types;
+        while (i--) {
+            if (!typeCheck.hasType(arguments[i], types[i])) {
+                var readableType = typeCheck.getReadableType(types[i]);
+                throw new TypeError(
+                    'Supplied argument ' + (i + 1) + ' is not of type ' + readableType);
+            }
+        }
+        return f.apply(this, arguments);
+    };
+
+    decorated.types = typed.parser.parseTypes(f) || [];
+
+    return decorated;
+};
+
+typed.commentParser = require('./typeParser/commentParser');
+typed.suffixParser = require('./typeParser/suffixParser');
+typed.noParser = require('./typeParser/noParser');
+
+typed.parser = typed.commentParser;
+
+typed.active = true;
+
+module.exports = typed;
+});
+
 require.define("/typeCheck.js",function(require,module,exports,__dirname,__filename,process,global){'use strict';
 
 var hasType = function(object, type) {
     if (type == null) return true;
-    if (typeof type === 'string') {
-        return  getNativeType(object) === type || isCustomType(object, type);
-    }
+    if (object == null) return false;
+    if (typeof type === 'string') return (getNativeType(object) === type || isCustomType(object, type));
     return matchesTypeStructure(object, type);
 };
 
@@ -421,19 +455,32 @@ var matchesTypeStructure = function(object, typeStructure) {
 };
 
 var checkIfTypeIsAvailable = function(type) {
-    if (!type || typeof type != 'string' || nativeTypes.indexOf(type) > -1) return;
+    if (!type || typeof type != 'string' || isNativeType(type)) return;
     try{
-        if (eval('typeof ' + type + ' != "function"')) errorReporting.throwError('invalid type');
+        if (eval('typeof ' + type + ' != "function"')) throw new Error();
     }
     catch(e) {
-        throw new Error('typed: Invalid type declaration given');
+        throw new TypeError('Type ' + type + ' is not available');
     }
+};
+
+var isNativeType = function(type) {
+    for (var i = 0, j = nativeTypes.length; i < j; i++) {
+        if (type === nativeTypes[i]) return true;
+    }
+    return false;
+};
+
+var getReadableType = function(type) {
+    return typeof type === 'string' ?
+        type : JSON.stringify(type).replace(/"/g, '');
 };
 
 var nativeTypes = ['Number', 'Boolean', 'String', 'Array', 'Object', 'Function'];
 
 exports.hasType = hasType;
 exports.checkIfTypeIsAvailable = checkIfTypeIsAvailable;
+exports.getReadableType = getReadableType;
 });
 
 require.define("/typeParser/commentParser.js",function(require,module,exports,__dirname,__filename,process,global){'use strict';
@@ -530,43 +577,19 @@ exports.parseTypes = parseTypes;
 exports.setTypeSeparator = setTypeSeparator;
 });
 
-require.define("/typeParser/dummyParser.js",function(require,module,exports,__dirname,__filename,process,global){'use strict';
+require.define("/typeParser/noParser.js",function(require,module,exports,__dirname,__filename,process,global){'use strict';
 
 exports.parseTypes = function() {
     return [];
 };
 });
 
-require.define("/typed.js",function(require,module,exports,__dirname,__filename,process,global){'use strict';
+require.define("/browserify.js",function(require,module,exports,__dirname,__filename,process,global){
 
-var typeCheck = require('./typeCheck');
+(function() {
+    this.typed = require('./typed');
+}());
 
-var typed = function(f) {
-    if (!typed.active) return f;
-    if (typeof f !== 'function') errorReporting.throwError(f + ' is not a function');
-    var decorated = function() {
-        var i = arguments.length, types = decorated.types;
-        while (i--) {
-            if (!typeCheck.hasType(arguments[i], types[i])) {
-                throw new Error('typed: argument ' + i + ' is not of type ' + types[i]);
-            }
-        }
-        return f.apply(this, arguments);
-    };
-
-    decorated.types = typed.parser.parseTypes(f);
-
-    return decorated;
-};
-
-typed.commentParser = require('./typeParser/commentParser');
-typed.suffixParser = require('./typeParser/suffixParser');
-typed.dummyParser = require('./typeParser/dummyParser');
-
-typed.parser = typed.commentParser;
-
-typed.active = true;
-
-module.exports = typed;
 });
-require("/typed.js");
+require("/browserify.js");
+})();

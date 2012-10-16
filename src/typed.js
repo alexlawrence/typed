@@ -9,20 +9,22 @@ var typed = function(f) {
         var i = arguments.length, types = decorated.types;
         while (i--) {
             if (!typeCheck.hasType(arguments[i], types[i])) {
-                throw new Error('typed: argument ' + i + ' is not of type ' + types[i]);
+                var readableType = typeCheck.getReadableType(types[i]);
+                throw new TypeError(
+                    'Supplied argument ' + (i + 1) + ' is not of type ' + readableType);
             }
         }
         return f.apply(this, arguments);
     };
 
-    decorated.types = typed.parser.parseTypes(f);
+    decorated.types = typed.parser.parseTypes(f) || [];
 
     return decorated;
 };
 
 typed.commentParser = require('./typeParser/commentParser');
 typed.suffixParser = require('./typeParser/suffixParser');
-typed.dummyParser = require('./typeParser/dummyParser');
+typed.noParser = require('./typeParser/noParser');
 
 typed.parser = typed.commentParser;
 

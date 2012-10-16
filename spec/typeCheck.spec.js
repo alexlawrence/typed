@@ -105,6 +105,14 @@ describe('typeCheck', function() {
 
             });
 
+            describe('when providing the wrong structure', function() {
+
+                it('should return false', function() {
+                    expect(typeCheck.hasType({}, typeStructure)).toBeFalsy();
+                });
+
+            });
+
         });
 
         describe('when only passing a value but no type to check', function() {

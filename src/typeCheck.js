@@ -2,9 +2,8 @@
 
 var hasType = function(object, type) {
     if (type == null) return true;
-    if (typeof type === 'string') {
-        return  getNativeType(object) === type || isCustomType(object, type);
-    }
+    if (object == null) return false;
+    if (typeof type === 'string') return (getNativeType(object) === type || isCustomType(object, type));
     return matchesTypeStructure(object, type);
 };
 
@@ -28,16 +27,29 @@ var matchesTypeStructure = function(object, typeStructure) {
 };
 
 var checkIfTypeIsAvailable = function(type) {
-    if (!type || typeof type != 'string' || nativeTypes.indexOf(type) > -1) return;
+    if (!type || typeof type != 'string' || isNativeType(type)) return;
     try{
-        if (eval('typeof ' + type + ' != "function"')) errorReporting.throwError('invalid type');
+        if (eval('typeof ' + type + ' != "function"')) throw new Error();
     }
     catch(e) {
-        throw new Error('typed: Invalid type declaration given');
+        throw new TypeError('Type ' + type + ' is not available');
     }
+};
+
+var isNativeType = function(type) {
+    for (var i = 0, j = nativeTypes.length; i < j; i++) {
+        if (type === nativeTypes[i]) return true;
+    }
+    return false;
+};
+
+var getReadableType = function(type) {
+    return typeof type === 'string' ?
+        type : JSON.stringify(type).replace(/"/g, '');
 };
 
 var nativeTypes = ['Number', 'Boolean', 'String', 'Array', 'Object', 'Function'];
 
 exports.hasType = hasType;
 exports.checkIfTypeIsAvailable = checkIfTypeIsAvailable;
+exports.getReadableType = getReadableType;

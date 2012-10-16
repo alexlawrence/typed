@@ -22,7 +22,7 @@ var parseTypes = function(f) {
 };
 
 var setTypeSeparator = function(separator) {
-    if (separator == '$') separator = '\\' + separator;
+    if (separator == '$') separator = '\\$';
     argumentTypeRegex = new RegExp('\\s*[A-Z$][0-9A-Z$]*' + separator + '([0-9A-Z$]*)\\s*', 'i');
 };
 

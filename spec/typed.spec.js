@@ -2,7 +2,7 @@
 
 var typed = require('./../src/typed');
 
-typed.parser = require('./../src/typeParser/dummyParser');
+typed.parser = typed.noParser;
 
 describe('typed', function() {
 

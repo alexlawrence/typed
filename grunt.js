@@ -1,25 +1,34 @@
 module.exports = function(grunt) {
 
+    'use strict';
+
     grunt.loadNpmTasks('grunt-jasmine-node-task');
-    grunt.loadNpmTasks('grunt-shell');
 
-    var browserify = require('browserify');
+    grunt.registerTask('jasmine', 'run jasmine specs', function() {
 
-    grunt.registerTask('browserify', function() {
+        var jasmine = require('jasmine-node');
+        var done = this.async();
+        jasmine.executeSpecsInFolder('./spec',
+            done,
+            false,
+            true,
+            false,
+            false,
+            /spec\.js/,
+            false);
+
+    });
+
+    grunt.registerTask('browserify', 'browserify code', function() {
+
         var browserify = require('browserify');
-        var output = browserify({entry: './src/typed.js',exports:'require'}).bundle();
-        grunt.file.write('./browser/typed.browser.js', output);
+        var output = browserify({
+            entry: './src/browserify.js'
+        }).bundle();
+        grunt.file.write('./bin/typed.browserified.js', output);
+
     });
 
-    grunt.initConfig({
-        jasmine_node: {
-            all: {
-                src: './',
-                error_reporting: true
-            }
-        }
-    });
-
-    grunt.registerTask('default', 'jasmine_node:all');
+    grunt.registerTask('default', 'jasmine browserify');
 
 };

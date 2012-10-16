@@ -7,10 +7,8 @@
     "author": "Alex Lawrence",
     "license": "MIT",
     "devDependencies": {
-        "jasmine-node": "*",
-        "jasmine-grunt-node-task": "*",
         "grunt": "*",
-        "browserify": "*",
-        "grunt-shell": "*"
+        "jasmine-node": "*",
+        "browserify": "*"
     }
 }

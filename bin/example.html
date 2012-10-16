@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>typed example</title>
+</head>
+<body>
+
+<script type="text/javascript" src="./typed.browserified.js"></script>
+
+<script type="text/javascript">
+    var Cart = function() {
+
+        var items = [];
+        this.add = typed(function(x /*:{price: Number}*/) {
+            items.push(x);
+        });
+        this.getTotalCosts = function() {
+            var total = 0;
+            for (var i = 0; i < items.length; i++) {
+                total += items[i].price;
+            }
+            return total;
+        }
+
+    };
+
+    var salad = {name: 'salad', price: 1.5};
+    var burger = {name: 'burger', price: 2};
+
+    var cart = new Cart();
+    cart.add(salad);
+    cart.add(burger);
+
+    console.log('total costs', cart.getTotalCosts());
+</script>
+
+</body>
+</html>

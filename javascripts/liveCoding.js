@@ -20,7 +20,6 @@
     };  
     
     var sandbox = (function() {
-        var typed = parent.typed;
         typed.active = true;
         typed.parser = typed.commentParser;
         var console = parent.fakeConsole;

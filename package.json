@@ -1,6 +1,6 @@
 {
     "name": "typed",
-    "version": "0.3.0",
+    "version": "0.3.3",
     "description": "Static typing for JavaScript",
     "main": "src/typed.js",
     "repository": "https://github.com/alexlawrence/typed.git",
@@ -9,6 +9,6 @@
     "devDependencies": {
         "grunt": "*",
         "jasmine-node": "*",
-        "browserify": "*"
+        "browserbuild": "*"
     }
 }

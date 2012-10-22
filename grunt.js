@@ -2,7 +2,40 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    grunt.loadNpmTasks('grunt-jasmine-node-task');
+    var license =
+        '/**\n' +
+            ' * @license\n' +
+            ' * typed - Static typing for JavaScript - version <%= pkg.version %>\n' +
+            ' * Copyright 2012, Alex Lawrence\n' +
+            ' * Licensed under the MIT license.\n' +
+            ' * http://www.opensource.org/licenses/MIT\n' +
+            ' */';
+
+    var version = 'declarative.version = "<%= pkg.version %>";';
+
+    grunt.initConfig({
+        pkg: '<json:package.json>',
+        meta: {
+            license: license,
+            version: version
+        },
+        concat: {
+            license: {
+                src: ['<banner:meta.license>'],
+                dest: 'LICENSE.txt'
+            },
+            codeAndLicense: {
+                src: ['<banner:meta.license>', 'bin/typed.browser.js'],
+                dest: 'bin/typed.browser.js'
+            }
+        },
+        min: {
+            all: {
+                src: ['<banner:meta.license>', 'bin/typed.browser.js'],
+                dest: 'bin/typed.browser.min.js'
+            }
+        }
+    });
 
     grunt.registerTask('jasmine', 'run jasmine specs', function() {
 
@@ -19,16 +52,23 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('browserify', 'browserify code', function() {
+    grunt.registerTask('browserExport', 'export code for browser', function() {
 
-        var browserify = require('browserify');
-        var output = browserify({
-            entry: './src/browserify.js'
-        }).bundle();
-        grunt.file.write('./bin/typed.browserified.js', output);
+        var files = grunt.file.readJSON('./component.json').scripts;
+
+        var browserbuild = require('browserbuild');
+        browserbuild().include(files)
+            .set('basepath', ['src/'])
+            .set('main', 'typed')
+            .set('global', 'typed')
+            .render(function(error, contents) {
+                if (error) grunt.error(error);
+                grunt.file.write('./bin/typed.browser.js', contents);
+        });
 
     });
 
-    grunt.registerTask('default', 'jasmine browserify');
+    grunt.registerTask('default',
+        'jasmine concat:license browserExport concat:codeAndLicense min:all');
 
 };

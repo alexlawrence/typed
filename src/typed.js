@@ -6,8 +6,8 @@ var typed = function(f) {
     if (!typed.active) return f;
     if (typeof f !== 'function') errorReporting.throwError(f + ' is not a function');
     var decorated = function() {
-        var i = arguments.length, types = decorated.types;
-        while (i--) {
+        var types = decorated.types;
+        for (var i = 0, j = arguments.length; i < j; i++) {
             if (!typeCheck.hasType(arguments[i], types[i])) {
                 var readableType = typeCheck.getReadableType(types[i]);
                 throw new TypeError(

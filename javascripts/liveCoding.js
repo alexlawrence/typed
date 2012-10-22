@@ -44,7 +44,7 @@
         try {
             iframe.contentDocument.open();
             iframe.contentDocument.write('<html><head></head><body>');
-            iframe.contentDocument.write('<script type="text/javascript" src="javascripts/typed.browserified.js"></script>');
+            iframe.contentDocument.write('<script type="text/javascript" src="javascripts/typed.browser.js"></script>');
             iframe.contentDocument.write('<script type="text/javascript">' + sandboxedCode + '</script>');
             iframe.contentDocument.write('</body></html>');
             iframe.contentDocument.close();

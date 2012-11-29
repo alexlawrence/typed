@@ -1,10 +1,10 @@
 {
     "name": "typed",
-    "description": "Static typing for JavaScript",
+    "description": "Type checking for JavaScript",
     "repo": "alexlawrence/typed",
     "main": "src/typed.js",
     "version": "0.3.3",
-    "keywords": ["typed", "static", "types", "typing"],
+    "keywords": ["typed", "types", "typing"],
     "dependencies": {},
     "scripts": [
         "src/typeCheck.js",

@@ -1,6 +1,6 @@
 /**
  * @license
- * typed - Static typing for JavaScript - version 0.3.3
+ * typed - Type checking for JavaScript - version 0.3.3
  * Copyright 2012, Alex Lawrence
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/MIT

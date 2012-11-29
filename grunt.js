@@ -5,19 +5,16 @@ module.exports = function(grunt) {
     var license =
         '/**\n' +
             ' * @license\n' +
-            ' * typed - Static typing for JavaScript - version <%= pkg.version %>\n' +
+            ' * typed - Type checking for JavaScript - version <%= pkg.version %>\n' +
             ' * Copyright 2012, Alex Lawrence\n' +
             ' * Licensed under the MIT license.\n' +
             ' * http://www.opensource.org/licenses/MIT\n' +
             ' */';
 
-    var version = 'declarative.version = "<%= pkg.version %>";';
-
     grunt.initConfig({
         pkg: '<json:package.json>',
         meta: {
-            license: license,
-            version: version
+            license: license
         },
         concat: {
             license: {

@@ -1,11 +1,11 @@
 # typed
 
-Static typing library for JavaScript. Works in Node.js and in most browsers.
+Type checking library for JavaScript. Works in Node.js and in most browsers.
 Official page and live examples: http://alexlawrence.github.com/typed
 
-## Static typing at runtime
+## Type checking at runtime
 
-typed provides static typing for function arguments at runtime without any compilation steps.
+typed provides type checking for function arguments at runtime without any compilation steps.
 It works with native types (Boolean, Number, String, etc.), global available custom types and so called structures 
 (similar to interfaces, named after destructuring).
 Just add type declaration comments to your arguments and wrap your functions inside the **typed()** function.
@@ -26,7 +26,7 @@ console.log(greeter.greet());
 
 ## How it works
             
-typed consists of two parts: argument type parsing and runtime argument type checking. The built-in parsers (comment, suffix and no parser) search the source code of the passed functions for type declarations. By default the <strong>comment parser</strong> is used. Unfortunately some JavaScript environments like Firefox and IE7 do not provide the original code comments when reading a function's source code. However this does not result in any error. typed simply won't perform any type checking in un.
+typed consists of two parts: argument type parsing and runtime argument type checking. The built-in parsers (comment, suffix and no parser) search the source code of the passed functions for type declarations. By default the <strong>comment parser</strong> is used. Unfortunately some JavaScript environments like Firefox and IE7 do not provide the original code comments when reading a function's source code.
             
 ## Alternative formats
             

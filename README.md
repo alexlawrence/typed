@@ -1,7 +1,9 @@
+## This module is DEPRECATED
+
 # typed
 
 Type checking library for JavaScript. Works in Node.js and in most browsers.
-Official page and live examples: http://alexlawrence.github.com/typed
+Informational page and live examples: http://alexlawrence.github.com/typed
 
 ## Type checking at runtime
 

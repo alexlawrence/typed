@@ -1,11 +1,11 @@
 {
-    "name": "typed",
     "version": "0.3.3",
     "description": "Type checking for JavaScript",
     "main": "src/typed.js",
     "repository": "https://github.com/alexlawrence/typed.git",
     "author": "Alex Lawrence",
     "license": "MIT",
+    "private": true,
     "devDependencies": {
         "grunt": "*",
         "jasmine-node": "*",

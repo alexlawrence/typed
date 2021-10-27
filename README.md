@@ -1,4 +1,7 @@
-### :heavy_exclamation_mark: This module is DEPRECATED :heavy_exclamation_mark:
+### Disclaimer
+
+This module is archived and was unpublished from npm.
+The package name "typed" is used by another package.
 
 # typed
 
